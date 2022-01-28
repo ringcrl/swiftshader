@@ -1,3 +1,6 @@
+macro (install)
+endmacro ()
+
 add_library(glslang-default-resource-limits
             ${CMAKE_CURRENT_SOURCE_DIR}/ResourceLimits.cpp
             ${CMAKE_CURRENT_SOURCE_DIR}/resource_limits_c.cpp)
