@@ -1261,7 +1261,12 @@ bool TParseContext::executeInitializer(const TSourceLoc& line, const TString& id
 
 	if(symbolTable.atGlobalLevel() && initializer->getQualifier() != EvqConstExpr)
 	{
-		error(line, "global variable initializers must be constant expressions", "=");
+		// 参考 Angle/src/compiler/translator/ValidateGlobalInitializer.cpp 实现
+		// We allow these cases to be compatible with legacy ESSL 1.00 content.
+		// Implement stricter rules for ESSL 3.00 since there's no legacy content to deal with.
+		if (mShaderVersion >= 300) {
+			error(line, "global variable initializers must be constant expressions", "=");
+		}
 		return true;
 	}
 
